@@ -11,7 +11,7 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
     start_date=datetime(2026, 1, 1),
     schedule=None,
     catchup=False,
-    tags=["preprocess", "silver"],
+    tags=["preprocess", "silver", "eu-ai-act"],
 )
 def preprocess_data():
 
@@ -45,7 +45,7 @@ def preprocess_data():
         file_obj = s3_hook.get_key(latest_key, bucket_name)
         file_content = file_obj.get()["Body"].read()
 
-        # Example processing with Pandas
+        # processing with Pandas
         df = pd.read_csv(io.BytesIO(file_content))
         print(f"Successfully loaded {len(df)} rows from {latest_key}.")
 

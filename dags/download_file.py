@@ -11,7 +11,7 @@ import pandas as pd
     start_date=datetime(2026, 1, 1),
     schedule=None,
     catchup=False,
-    tags=["ingestion", "bronze"]
+    tags=["ingestion", "bronze", "eu-ai-act"]
 )
 def ingest_to_minio_bronze():
 
