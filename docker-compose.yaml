@@ -34,6 +34,7 @@ services:
       POSTGRES_DB: airflow
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
+      - ./init-feedback-db.sql:/docker-entrypoint-initdb.d/init-feedback-db.sql
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
@@ -133,6 +134,7 @@ services:
     volumes:
       - qdrant_storage:/qdrant/storage
 
+  # --- Streamlit Application ---
   streamlit:
     build:
       context: .
@@ -149,8 +151,26 @@ services:
       - qdrant
     networks:
       - default
-      
+
+  # --- Grafana Application ---
+  grafana:
+    image: grafana/grafana:latest
+    container_name: eu_ai_grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    depends_on:
+      - postgres
+    networks:
+      - default
+
 volumes:
   postgres-db-volume:
   minio-data-volume:
   qdrant_storage:
+  grafana-storage:

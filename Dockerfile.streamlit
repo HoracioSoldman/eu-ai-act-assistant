@@ -2,16 +2,12 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install system dependencies if needed
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# CPU-only PyTorch first
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 
-# Install Python dependencies
 COPY requirements-streamlit.txt .
 RUN pip install --no-cache-dir -r requirements-streamlit.txt
 
-# Copy the Streamlit app code
 COPY app.py .
 
 EXPOSE 8501

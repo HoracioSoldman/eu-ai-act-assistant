@@ -4,7 +4,7 @@ import os
 import io
 
 @dag(
-    dag_id="ingest_terms_to_qdrant",
+    dag_id="ingest_terms_to_qdrant_db",
     start_date=datetime(2026, 1, 1),
     schedule=None,
     catchup=False,
