@@ -32,7 +32,12 @@ def save_feedback(user_query: str, llm_response: str, rating: int):
 
 
 # Page configuration
-st.set_page_config(page_title="EU AI Act RAG Assistant", page_layout="centered")
+st.set_page_config(
+    page_title="EU AI Act Compliance Assistant", 
+    page_icon="⚖️",
+    layout="centered", 
+    initial_sidebar_state="auto"
+)
 st.title("⚖️ EU AI Act Compliance & Regulation Assistant")
 
 # 1. Cache resources so models and clients don't reload on every click
@@ -59,6 +64,8 @@ if "messages" not in st.session_state:
 
 # 2. Render Chat History + Feedback Widgets
 for idx, message in enumerate(st.session_state.messages):
+    role = message["role"]
+    avatar_icon = "👤" if role == 'user' else "🤖" 
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
         
@@ -87,18 +94,18 @@ for idx, message in enumerate(st.session_state.messages):
                 st.rerun()
 
 # Display prior chat history
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+# for message in st.session_state.messages:
+#     with st.chat_message(message["role"]):
+#         st.markdown(message["content"])
 
 # 3. Handle user input
 if user_query := st.chat_input("Ask a question about the EU AI Act definitions..."):
     # Append and display user message
     st.session_state.messages.append({"role": "user", "content": user_query})
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar="👤"):
         st.markdown(user_query)
 
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar="🤖"):
         with st.spinner("Searching regulations and generating answer..."):
             
             # Step 1: Vectorize user query
@@ -147,9 +154,12 @@ if user_query := st.chat_input("Ask a question about the EU AI Act definitions..
             
             # Append sources used for transparency
             if sources:
-                source_str = ", ".join(sources)
-                answer += f"\n\n* **Sources:** {source_str}"
+                source_str = " | ".join(sources)
+                answer += f"\n\n   📄**Sources:** {source_str}"
 
         # Display assistant response
         st.markdown(answer)
         st.session_state.messages.append({"role": "assistant", "content": answer})
+    
+    # rerun to display the feedback widget for the new assistant message
+    st.rerun()

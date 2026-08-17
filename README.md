@@ -45,6 +45,10 @@ We utilize a containerized stack to ensure reproducibility and scalability with 
 #### 1. Prerequisites
 * Docker Desktop (with Docker Compose) installed.
 * An `OPENAI_API_KEY` (or equivalent LLM provider key) for the generation step.
+* Rename the `.env.example` file to `.env` and add values to the 3 variables there
+    * AIRFLOW_UID 
+    * AIRFLOW__API_AUTH__JWT_SECRET
+    * OPENAI_API_KEY
 
 #### 2. Launch the Infrastructure
 From the project root directory, spin up the entire stack with docker compose:
@@ -77,11 +81,15 @@ While waiting for the ingestion pipeline to complete, we can visualise temporary
 
 
 #### 4. Start Asking Questions
-1. Once the pipeline finishes, navigate to the Streamlit UI ( http://localhost:8501).
+1. Once the pipeline finishes, navigate to the Streamlit UI ( http://localhost:8501). Then wait for Streamlit to load the embedding model
+![Streamlit Loading](screenshots/streamlit-loading.png)
 
 2. Type your question in the chat input (e.g., "What is an authorised representative?").
 
 3. The app will retrieve relevant legal context, pass it to the LLM, and provide a cited, accurate answer.
+
+![Example Chat](screenshots/example-chat.png)
+
 
 
 #### 4. Monitor
@@ -96,3 +104,6 @@ While waiting for the ingestion pipeline to complete, we can visualise temporary
     * SSL Mode: `disable`
 
 3. Observe real-time logs of user feedback and interactions.
+
+#### 5. Demo
+https://github.com/user-attachments/assets/c6bb43cc-ba43-49b0-8ab0-e6bf876bbaed
