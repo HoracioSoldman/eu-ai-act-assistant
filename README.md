@@ -11,9 +11,10 @@ It provides a full data engineering pipeline: from automated ingestion to an int
 
 
 ### Project Overview
+![Project Architecture](screenshots/archi.png)
 This project is an end-to-end data platform designed to ingest, vectorize, and serve regulatory knowledge. It handles the entire lifecycle of RAG:
 
-0. Dataset: we use the structured version of the document from [@jeroenherczeg on Hugginig Face](https://huggingface.co/datasets/jeroenherczeg/eu-ai-act)
+0. Dataset: we use the structured version of the document from [@jeroenherczeg on Hugging Face](https://huggingface.co/datasets/jeroenherczeg/eu-ai-act)
 1. Orchestration: Automated ingestion and processing using Airflow.
 
 2. Storage of the Knowledge Base: High-performance semantic vector storage with Qdrant and Sentence Transformer.
@@ -88,7 +89,7 @@ While waiting for the ingestion pipeline to complete, we can visualise temporary
 
 3. The app will retrieve relevant legal context, pass it to the LLM, and provide a cited, accurate answer.
 
-![Example Chat](screenshots/example-chat.png)
+![Example Chat](screenshots/app-chat.png)
 
 
 
