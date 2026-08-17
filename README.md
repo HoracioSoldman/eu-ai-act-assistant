@@ -92,8 +92,17 @@ While waiting for the ingestion pipeline to complete, we can visualise temporary
 ![Example Chat](screenshots/app-chat.png)
 
 
+#### 5. Retrieval Evaluation
+We created a DAG `rag_evaluation` that performs evaluations on 3 typical user questions. The goal is to systematically evaluate the performance of the Qdrant semantic search. 
 
-#### 4. Monitor
+The Hit Rate and Mean Reciprocal Rank (MRR) are recorded on our Postgres database under the `retrieval_evaluation` table.
+For instance, the following table are what we recorded in our last evaluation.
+| id | evaluated_at | total_queries | hit_rate | mrr | top_k |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 4 | 2026-08-18 01:02:11.435 | 3 | 0.666667 | 0.444444 | 5 |
+
+
+#### 6. Monitor
 1. Access the Grafana dashboard (http://localhost:3000) and when prompted, use the default credentials (admin/admin)
 
 2. In the left-hand navigation menu, go to Connections > Data sources > Add data source.  Connect the PostgreSQL feedback_db as a data source. Use the following config:
