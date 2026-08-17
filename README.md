@@ -114,6 +114,7 @@ For instance, the following table are what we recorded in our last evaluation.
     * SSL Mode: `disable`
 
 3. Observe real-time logs of user feedback and interactions.
+![Example Monitoring](screenshots/monitoring.png)
 
 #### 5. Demo
 https://github.com/user-attachments/assets/c6bb43cc-ba43-49b0-8ab0-e6bf876bbaed
